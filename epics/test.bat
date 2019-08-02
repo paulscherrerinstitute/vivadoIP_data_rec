@@ -1,0 +1,2 @@
+python3 GenerateDataRecTemplates.py -outname test -outpath . -channels 4 -exttrigcnt 4
+python3 GenerateDataRecPanel.py -outname test -outpath . -channels FirstChannel SecondChannel ThirdChannel FourthHasDifferentName -exttrigcnt 4
