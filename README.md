@@ -22,7 +22,7 @@ Alternatively the repository [psi\_fpga\_all](https://github.com/paulscherrerins
 
 * TCL
   * [PsiSim](https://github.com/paulscherrerinstitute/PsiSim) (2.1.0 or higher, for development only)
-  * [PsiIpPackage](https://github.com/paulscherrerinstitute/PsiIpPackage) (2.0.0, for development only )
+  * [PsiIpPackage](https://github.com/paulscherrerinstitute/PsiIpPackage) (2.1.0, for development only )
 * VHDL
   * [psi\_common](https://github.com/paulscherrerinstitute/psi_common) (2.5.0 or higher)
   * [psi\_tb](https://github.com/paulscherrerinstitute/psi_tb) (2.0.0 or higher)

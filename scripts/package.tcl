@@ -79,6 +79,15 @@ gui_add_parameter
 remove_autodetected_interface Rst
 
 ###############################################################
+# Associate clock
+###############################################################
+#Clk is associated wrongly, so we remove and re-add it
+remove_autodetected_interface Clk
+add_clock_in_interface Clk
+#Add correct association
+set_interface_clock s00_axi s00_axi_aclk
+
+###############################################################
 # Optional Ports
 ###############################################################
 
