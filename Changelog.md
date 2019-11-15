@@ -1,3 +1,7 @@
+## 2.3.1
+* Bugfixes
+  * Removed wrong clock association between Clk and s00\_axi
+
 ## 2.3.0
 * First Open Source Release (older versions not kept in history)
 * Added license and copyright headers
