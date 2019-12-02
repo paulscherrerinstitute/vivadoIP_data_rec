@@ -1,3 +1,7 @@
+## 2.3.2
+* Bugfixes
+  * Fixed wrapping issue for non power-of-two *MemoryDepth\_g*
+
 ## 2.3.1
 * Bugfixes
   * Removed wrong clock association between Clk and s00\_axi
