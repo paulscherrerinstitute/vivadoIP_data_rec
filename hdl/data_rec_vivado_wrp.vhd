@@ -512,11 +512,13 @@ begin
 	
 	-- For non power of 2 memory depth, the address logic is more complex and prone to slow timing, therefore it is only implemented if required
 	g_npwr2mem : if NonPwr2MemDepth_c generate
-		signal AxiMemAddrUnwrapped : std_logic_vector(AxiMemAdr'range);
+		signal AxiMemAddrUnwrapped 	: std_logic_vector(AxiMemAdr'high+1 downto 0);
+		signal MemAddrFull			: std_logic_vector(AxiMemAddrUnwrapped'range);
 	begin
-		AxiMemAddrUnwrapped		<= std_logic_vector(unsigned(mem_addr(log2ceil(MemoryDepth_g)+1 downto 2)) + unsigned(FirstSplAddr));
-		AxiMemAdr				<= AxiMemAddrUnwrapped when unsigned(AxiMemAddrUnwrapped) < MemoryDepth_g else 
+		AxiMemAddrUnwrapped		<= std_logic_vector(unsigned(mem_addr(log2ceil(MemoryDepth_g)+1 downto 2)) + unsigned('0' & FirstSplAddr));
+		MemAddrFull				<= AxiMemAddrUnwrapped when unsigned(AxiMemAddrUnwrapped) < MemoryDepth_g else 
 								   std_logic_vector(unsigned(AxiMemAddrUnwrapped) - MemoryDepth_g);
+		AxiMemAdr				<= MemAddrFull(AxiMemAdr'range);
 	end generate;
 		
 	

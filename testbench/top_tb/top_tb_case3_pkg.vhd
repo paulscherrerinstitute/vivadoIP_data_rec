@@ -119,14 +119,14 @@ package body top_tb_case3_pkg is
 		-- Check SW Trigger, maximum samples, no pre-trigger
 		axi_single_write(Reg_Cfg_Addr_c, 1*2**Reg_Cfg_ArmIdx_c, ms, sm, aclk);
 		axi_single_write(Reg_Pretrig_Addr_c, 0, ms, sm, aclk);
-		axi_single_write(Reg_Totspl_Addr_c, MemoryDepth_c, ms, sm, aclk);
+		axi_single_write(Reg_Totspl_Addr_c, MemoryDepth_v, ms, sm, aclk);
 		InputSamples(100, ToDut, Clk, 0);
 		axi_single_write(Reg_SwTrig_Addr_c, 1*2**Reg_SwTrig_TrigIdx_c, ms, sm, aclk);
 		wait for 200 ns;
 		axi_single_write(Reg_SwTrig_Addr_c, 0, ms, sm, aclk);
 		wait for 200 ns;
 		InputSamples(100, ToDut, Clk);
-		CheckData(MemoryDepth_c, 100, ms, sm, aclk);
+		CheckData(MemoryDepth_v, 100, ms, sm, aclk);
 
 		-- Check no effect if SW trigger disabled as source
 		axi_single_write(Reg_Cfg_Addr_c, 1*2**Reg_Cfg_ArmIdx_c, ms, sm, aclk);

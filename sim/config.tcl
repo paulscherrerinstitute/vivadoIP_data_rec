@@ -55,4 +55,7 @@ psi::sim::add_sources "../testbench" {
 	
 #TB Runs
 psi::sim::create_tb_run "top_tb"
+psi::sim::tb_run_add_arguments \
+	"-gMemoryDepth_g=32" \
+	"-gMemoryDepth_g=30"
 psi::sim::add_tb_run

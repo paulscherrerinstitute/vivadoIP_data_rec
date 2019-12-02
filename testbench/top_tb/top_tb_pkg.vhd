@@ -32,13 +32,13 @@ package top_tb_pkg is
 	-------------------------------------------------------------------------
 	constant InputWidth_c		: integer		:= 16;
 	constant NumOfInputs_c		: integer		:= 4;
-	constant MemoryDepth_c		: integer		:= 32;
 	constant TriggerInputs_c	: integer		:= 4;
 	
 	-------------------------------------------------------------------------
 	-- Variables
 	-------------------------------------------------------------------------
 	shared variable PatternCnt_v	: integer	:= 0;
+	shared variable MemoryDepth_v	: integer		:= 30;
 														
 	-------------------------------------------------------------------------
 	-- Types
@@ -141,7 +141,7 @@ package body top_tb_pkg is
 		for ch in 0 to NumOfInputs_c-1 loop				
 			for spl in 0 to samples-1 loop
 				ExpVal_v := ch*2**(InputWidth_c-3)+spl+startValue;
-				axi_single_expect(MemAddr(ch, spl, MemoryDepth_c), ExpVal_v, ms, sm, aclk, "Data Ch" & integer'image(ch) & " Spl " & integer'image(spl));
+				axi_single_expect(MemAddr(ch, spl, MemoryDepth_v), ExpVal_v, ms, sm, aclk, "Data Ch" & integer'image(ch) & " Spl " & integer'image(spl));
 			end loop;
 		end loop; 
 	end procedure;
@@ -187,7 +187,7 @@ package body top_tb_pkg is
 		for ch in 0 to NumOfInputs_c-1 loop				
 			for spl in 0 to samples-1 loop
 				ExpVal_v := ch*chStep+spl*cntStep+startValue;
-				axi_single_expect(MemAddr(ch, spl, MemoryDepth_c), ExpVal_v, ms, sm, aclk, "Data Ch" & integer'image(ch) & " Spl " & integer'image(spl));
+				axi_single_expect(MemAddr(ch, spl, MemoryDepth_v), ExpVal_v, ms, sm, aclk, "Data Ch" & integer'image(ch) & " Spl " & integer'image(spl));
 			end loop;
 		end loop;
 	end procedure;

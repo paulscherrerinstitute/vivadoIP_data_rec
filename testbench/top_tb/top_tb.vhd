@@ -25,6 +25,9 @@ library work;
 	use work.top_tb_case4_pkg.all;
 
 entity top_tb is
+	generic (
+		MemoryDepth_g				: positive					:= 32
+	);
 end entity top_tb;
 
 architecture sim of top_tb is
@@ -97,7 +100,7 @@ begin
 			-- Component Generics
 			InputWidth_g				=> InputWidth_c,
 			NumOfInputs_g				=> NumOfInputs_c,
-			MemoryDepth_g				=> MemoryDepth_c,
+			MemoryDepth_g				=> MemoryDepth_g,
 			TrigInputs_g				=> TriggerInputs_c,
 			-- AXI
 			C_S00_AXI_ID_WIDTH     	 	=> ID_WIDTH,
@@ -196,6 +199,9 @@ begin
 		variable r 			: line;
 		variable sample		: integer;
 	begin
+		-- Set Memory Depth
+		MemoryDepth_v := 30;
+	
 		-- Reset
 		aresetn <= '0';
 		Rst <= '1';

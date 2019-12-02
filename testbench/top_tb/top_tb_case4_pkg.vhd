@@ -62,9 +62,9 @@ package body top_tb_case4_pkg is
 		axi_single_write(Reg_Cfg_Addr_c, 1*2**Reg_Cfg_ArmIdx_c, ms, sm, aclk);
 		axi_single_write(Reg_Cfg_Addr_c, 1*2**Reg_Cfg_ArmIdx_c, ms, sm, aclk);
 		wait for 100 ns;
-		InputSamples(MemoryDepth_c*2, ToDut, Clk, 0, MemoryDepth_c);
+		InputSamples(MemoryDepth_v*2, ToDut, Clk, 0, MemoryDepth_v);
 		wait for 100 ns;	
-		CheckData(10, MemoryDepth_c-5, ms, sm, aclk);
+		CheckData(10, MemoryDepth_v-5, ms, sm, aclk);
 		axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StateDone_c, ms, sm, aclk, "Done Status", 3, 0);
 
 		-- Pre-Trigger > Total
@@ -73,7 +73,7 @@ package body top_tb_case4_pkg is
 		axi_single_write(Reg_Cfg_Addr_c, 1*2**Reg_Cfg_ArmIdx_c, ms, sm, aclk);
 		wait for 100 ns;
 		axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StatePreTrig_c, ms, sm, aclk, "PreTrig Status", 3, 0);	
-		InputSamples(MemoryDepth_c*2, ToDut, Clk, 0, MemoryDepth_c);
+		InputSamples(MemoryDepth_v*2, ToDut, Clk, 0, MemoryDepth_v);
 		wait for 100 ns;	
 		-- data is not important but clean recovery is
 		axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StateDone_c, ms, sm, aclk, "Done Status", 3, 0);
@@ -86,11 +86,11 @@ package body top_tb_case4_pkg is
 		wait for 200 ns;
 		assert FromDut.Done_Irq = '0' and FromDut.Done_Irq'last_event > now - lastDoneCheck report "Done_Irq was high after arming" severity error;
 		lastDoneCheck := now;
-		InputSamples(MemoryDepth_c*2, ToDut, Clk, 100, MemoryDepth_c);
+		InputSamples(MemoryDepth_v*2, ToDut, Clk, 100, MemoryDepth_v);
 		wait for 100 ns;	
 		assert FromDut.Done_Irq'last_event < now - lastDoneCheck report "Done_Irq was low after recording" severity error;
 		lastDoneCheck := now;
-		CheckData(10, 100+MemoryDepth_c-5, ms, sm, aclk);
+		CheckData(10, 100+MemoryDepth_v-5, ms, sm, aclk);
 		axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StateDone_c, ms, sm, aclk, "Done Status", 3, 0);		
 		
 		-- Total Samples = 0
@@ -99,7 +99,7 @@ package body top_tb_case4_pkg is
 		axi_single_write(Reg_Cfg_Addr_c, 1*2**Reg_Cfg_ArmIdx_c, ms, sm, aclk);
 		wait for 100 ns;
 		axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StatePreTrig_c, ms, sm, aclk, "PreTrig Status", 3, 0);	
-		InputSamples(MemoryDepth_c*2, ToDut, Clk, 0, MemoryDepth_c);
+		InputSamples(MemoryDepth_v*2, ToDut, Clk, 0, MemoryDepth_v);
 		wait for 100 ns;	
 		-- data is not important but clean recovery is
 		axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StateDone_c, ms, sm, aclk, "Done Status", 3, 0);
@@ -112,11 +112,11 @@ package body top_tb_case4_pkg is
 		wait for 200 ns;
 		assert FromDut.Done_Irq = '0' and FromDut.Done_Irq'last_event > now - lastDoneCheck report "Done_Irq was high after arming" severity error;
 		lastDoneCheck := now;
-		InputSamples(MemoryDepth_c*2, ToDut, Clk, 100, MemoryDepth_c);
+		InputSamples(MemoryDepth_v*2, ToDut, Clk, 100, MemoryDepth_v);
 		wait for 100 ns;	
 		assert FromDut.Done_Irq'last_event < now - lastDoneCheck report "Done_Irq was low after recording" severity error;
 		lastDoneCheck := now;
-		CheckData(10, 100+MemoryDepth_c-5, ms, sm, aclk);
+		CheckData(10, 100+MemoryDepth_v-5, ms, sm, aclk);
 		axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StateDone_c, ms, sm, aclk, "Done Status", 3, 0);			
 
 				

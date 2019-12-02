@@ -45,7 +45,7 @@ package body top_tb_case1_pkg is
 					signal aclk		: in	std_logic;
 					signal Clk 		: in 	std_logic;
 					signal ToDut	: out	In_t) is
-		constant DefaultSamples_c	: integer := MemoryDepth_c*3/4;
+		constant DefaultSamples_c	: integer := MemoryDepth_v*3/4;
 		variable DutyCycle_v		: integer;
 	begin
 		-- Print Message
@@ -60,9 +60,9 @@ package body top_tb_case1_pkg is
 			axi_single_write(Reg_Pretrig_Addr_c, 0, ms, sm, aclk);
 			axi_single_write(Reg_Cfg_Addr_c, 1*2**Reg_Cfg_ArmIdx_c, ms, sm, aclk);
 			wait for 250 ns;
-			InputSamples(MemoryDepth_c*2, ToDut, Clk, 0, MemoryDepth_c, DutyCycle_v);
+			InputSamples(MemoryDepth_v*2, ToDut, Clk, 0, MemoryDepth_v, DutyCycle_v);
 			wait for 250 ns;	
-			CheckData(DefaultSamples_c, MemoryDepth_c, ms, sm, aclk);
+			CheckData(DefaultSamples_c, MemoryDepth_v, ms, sm, aclk);
 			axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StateDone_c, ms, sm, aclk, "Done Status", 3, 0);
 			
 			-- Normal Samples, Maximum Pre-Trigger
@@ -72,9 +72,9 @@ package body top_tb_case1_pkg is
 			axi_single_write(Reg_Cfg_Addr_c, 1*2**Reg_Cfg_ArmIdx_c, ms, sm, aclk);
 			wait for 250 ns;
 			axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StatePreTrig_c, ms, sm, aclk, "Direct Re-Arm without PreTrig Status", 3, 0);
-			InputSamples(MemoryDepth_c*2, ToDut, Clk, 0, MemoryDepth_c, DutyCycle_v);
+			InputSamples(MemoryDepth_v*2, ToDut, Clk, 0, MemoryDepth_v, DutyCycle_v);
 			wait for 250 ns;	
-			CheckData(DefaultSamples_c, MemoryDepth_c-DefaultSamples_c+1, ms, sm, aclk);	
+			CheckData(DefaultSamples_c, MemoryDepth_v-DefaultSamples_c+1, ms, sm, aclk);	
 			axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StateDone_c, ms, sm, aclk, "Done Status", 3, 0);
 			
 			-- Only one sample (in the middle)
@@ -82,9 +82,9 @@ package body top_tb_case1_pkg is
 			axi_single_write(Reg_Pretrig_Addr_c, 0, ms, sm, aclk);	
 			axi_single_write(Reg_Cfg_Addr_c, 1*2**Reg_Cfg_ArmIdx_c, ms, sm, aclk);	
 			wait for 250 ns;		
-			InputSamples(MemoryDepth_c*2, ToDut, Clk, 0, MemoryDepth_c, DutyCycle_v);
+			InputSamples(MemoryDepth_v*2, ToDut, Clk, 0, MemoryDepth_v, DutyCycle_v);
 			wait for 250 ns;	
-			CheckData(1, MemoryDepth_c, ms, sm, aclk);			
+			CheckData(1, MemoryDepth_v, ms, sm, aclk);			
 			axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StateDone_c, ms, sm, aclk, "Done Status", 3, 0);
 			
 			-- Only one sample (first one)
@@ -108,33 +108,33 @@ package body top_tb_case1_pkg is
 			axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StateDone_c, ms, sm, aclk, "Done Status", 3, 0);		
 			
 			-- Maximum sample count, normal pre trigger
-			axi_single_write(Reg_Totspl_Addr_c, MemoryDepth_c, ms, sm, aclk);
-			axi_single_write(Reg_Pretrig_Addr_c, MemoryDepth_c/2, ms, sm, aclk);
+			axi_single_write(Reg_Totspl_Addr_c, MemoryDepth_v, ms, sm, aclk);
+			axi_single_write(Reg_Pretrig_Addr_c, MemoryDepth_v/2, ms, sm, aclk);
 			axi_single_write(Reg_Cfg_Addr_c, 1*2**Reg_Cfg_ArmIdx_c, ms, sm, aclk);
 			wait for 250 ns;
-			InputSamples(MemoryDepth_c*2, ToDut, Clk, 0, MemoryDepth_c, DutyCycle_v);
+			InputSamples(MemoryDepth_v*2, ToDut, Clk, 0, MemoryDepth_v, DutyCycle_v);
 			wait for 250 ns;	
-			CheckData(DefaultSamples_c, MemoryDepth_c-MemoryDepth_c/2, ms, sm, aclk);
+			CheckData(DefaultSamples_c, MemoryDepth_v-MemoryDepth_v/2, ms, sm, aclk);
 			axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StateDone_c, ms, sm, aclk, "Done Status", 3, 0);		
 			
 			-- Maximum sample count, max pre-trigger
-			axi_single_write(Reg_Totspl_Addr_c, MemoryDepth_c, ms, sm, aclk);
-			axi_single_write(Reg_Pretrig_Addr_c, MemoryDepth_c-1, ms, sm, aclk);
+			axi_single_write(Reg_Totspl_Addr_c, MemoryDepth_v, ms, sm, aclk);
+			axi_single_write(Reg_Pretrig_Addr_c, MemoryDepth_v-1, ms, sm, aclk);
 			axi_single_write(Reg_Cfg_Addr_c, 1*2**Reg_Cfg_ArmIdx_c, ms, sm, aclk);
 			wait for 250 ns;
-			InputSamples(MemoryDepth_c*2, ToDut, Clk, 0, MemoryDepth_c, DutyCycle_v);
+			InputSamples(MemoryDepth_v*2, ToDut, Clk, 0, MemoryDepth_v, DutyCycle_v);
 			wait for 250 ns;	
 			CheckData(DefaultSamples_c, 1, ms, sm, aclk);
 			axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StateDone_c, ms, sm, aclk, "Done Status", 3, 0);			
 			
 			-- Maximum sample count, no pre-trigger
-			axi_single_write(Reg_Totspl_Addr_c, MemoryDepth_c, ms, sm, aclk);
+			axi_single_write(Reg_Totspl_Addr_c, MemoryDepth_v, ms, sm, aclk);
 			axi_single_write(Reg_Pretrig_Addr_c, 0, ms, sm, aclk);
 			axi_single_write(Reg_Cfg_Addr_c, 1*2**Reg_Cfg_ArmIdx_c, ms, sm, aclk);
 			wait for 250 ns;
-			InputSamples(MemoryDepth_c*2, ToDut, Clk, 0, MemoryDepth_c, DutyCycle_v);
+			InputSamples(MemoryDepth_v*2, ToDut, Clk, 0, MemoryDepth_v, DutyCycle_v);
 			wait for 250 ns;	
-			CheckData(DefaultSamples_c, MemoryDepth_c, ms, sm, aclk);
+			CheckData(DefaultSamples_c, MemoryDepth_v, ms, sm, aclk);
 			axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StateDone_c, ms, sm, aclk, "Done Status", 3, 0);		
 			
 			-- Minimum Trigger Recording Period not respected

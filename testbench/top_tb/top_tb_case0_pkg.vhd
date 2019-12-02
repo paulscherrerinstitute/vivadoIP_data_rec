@@ -47,8 +47,8 @@ package body top_tb_case0_pkg is
 					signal Clk 		: in 	std_logic;
 					signal ToDut	: out	In_t;
 					signal FromDut	: in	Out_t) is
-		constant Samples_c 		: integer := MemoryDepth_c-4;
-		constant PreTrigger_c	: integer := MemoryDepth_c/2;
+		constant Samples_c 		: integer := MemoryDepth_v-4;
+		constant PreTrigger_c	: integer := MemoryDepth_v/2;
 		constant PostTrigger	: integer := Samples_c-PreTrigger_c;
 		constant UnusedSamples	: integer := 4;
 		variable startTime		: time;
@@ -119,7 +119,7 @@ package body top_tb_case0_pkg is
 			-- end recording
 			InputSamples(PostTrigger, ToDut, Clk);
 			startTime := now;
-			InputSamples(MemoryDepth_c*1/2, ToDut, Clk);
+			InputSamples(MemoryDepth_v*1/2, ToDut, Clk);
 			wait for 10 us;
 			axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StateDone_c, ms, sm, aclk, "Done Status", 3, 0);
 			doneTime := now - startTime;
@@ -137,7 +137,7 @@ package body top_tb_case0_pkg is
 					
 			
 			-- Additional samples don't hurt
-			InputSamples(MemoryDepth_c*1/2, ToDut, Clk);
+			InputSamples(MemoryDepth_v*1/2, ToDut, Clk);
 			wait for 100 ns;
 			axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StateIdle_c, ms, sm, aclk, "Idle Status 3", 3, 0);
 			assert FromDut.Done_Irq = '0' and FromDut.Done_Irq'last_event > now - lastDoneCheck report "Done_Irq was high after going back to idle" severity error;

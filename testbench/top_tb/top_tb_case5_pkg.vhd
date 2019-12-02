@@ -74,13 +74,13 @@ package body top_tb_case5_pkg is
 				wait for 200 ns;
 				assert FromDut.Done_Irq = '0' and FromDut.Done_Irq'last_event > now - lastDoneCheck report "Done_Irq was high after arming" severity error;
 				lastDoneCheck := now;
-				InputSamples(MemoryDepth_c*2, ToDut, Clk, dataStart, MemoryDepth_c, 1, ti_cur);
+				InputSamples(MemoryDepth_v*2, ToDut, Clk, dataStart, MemoryDepth_v, 1, ti_cur);
 				wait for 100 ns;	
 				-- check recording done if the trigger input is active
 				if ti_cur = ti_ena then
 					assert FromDut.Done_Irq'last_event < now - lastDoneCheck report "Done_Irq was low after recording" severity error;
 					lastDoneCheck := now;
-					CheckData(10, dataStart+MemoryDepth_c-5, ms, sm, aclk);
+					CheckData(10, dataStart+MemoryDepth_v-5, ms, sm, aclk);
 					axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StateDone_c, ms, sm, aclk, "Done Status", 3, 0);	
 				-- check no trigger if input is inactive
 				else
@@ -102,11 +102,11 @@ package body top_tb_case5_pkg is
 			wait for 200 ns;
 			assert FromDut.Done_Irq = '0' and FromDut.Done_Irq'last_event > now - lastDoneCheck report "Done_Irq was high after arming" severity error;
 			lastDoneCheck := now;
-			InputSamples(MemoryDepth_c*2, ToDut, Clk, dataStart, MemoryDepth_c, 1, ti_cur);
+			InputSamples(MemoryDepth_v*2, ToDut, Clk, dataStart, MemoryDepth_v, 1, ti_cur);
 			wait for 100 ns;	
 			assert FromDut.Done_Irq'last_event < now - lastDoneCheck report "Done_Irq was low after recording" severity error;
 			lastDoneCheck := now;
-			CheckData(10, dataStart+MemoryDepth_c-5, ms, sm, aclk);
+			CheckData(10, dataStart+MemoryDepth_v-5, ms, sm, aclk);
 			axi_single_expect(Reg_Stat_Addr_c, Reg_Stat_StateDone_c, ms, sm, aclk, "Done Status", 3, 0);	
 		end loop;
 
