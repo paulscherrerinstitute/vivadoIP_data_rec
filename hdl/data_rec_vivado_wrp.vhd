@@ -338,7 +338,11 @@ begin
 	reg_rdata(ToWordAddr(Reg_TrigEna_Addr_c))(reg_trigena'left downto 0)				<= reg_trigena;
 	reg_rdata(ToWordAddr(Reg_MinRecPeriod_Addr_c))(reg_minrecperiod'left downto 0)		<= reg_minrecperiod;
 	reg_rdata(ToWordAddr(Reg_EnableExtTrig_Addr_c))(reg_enableexttrig'left downto 0)	<= reg_enableexttrig;
-	
+  -- Component Parameter Readback:
+	reg_rdata(ToWordAddr(Reg_ParamInputs_Addr_c))(7 downto 0)     <= std_logic_vector(to_unsigned(NumOfInputs_g, 8));
+	reg_rdata(ToWordAddr(Reg_ParamInputs_Addr_c))(15 downto 8)    <= std_logic_vector(to_unsigned(InputWidth_g, 8));
+	reg_rdata(ToWordAddr(Reg_ParamInputs_Addr_c))(23 downto 16)   <= std_logic_vector(to_unsigned(TrigInputs_g, 8));
+	reg_rdata(ToWordAddr(Reg_ParamMemDepth_Addr_c))(31 downto 0)  <= std_logic_vector(to_unsigned(MemoryDepth_g, 32));
    
 	-----------------------------------------------------------------------------
 	-- Clock Crossings
