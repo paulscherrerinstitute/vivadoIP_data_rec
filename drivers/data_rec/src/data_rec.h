@@ -70,7 +70,7 @@ void DataRec_EnableSelfTrigger(const uint32_t baseAddr, const uint32_t channel, 
 void DataRec_SetSwTrigger(const uint32_t baseAddr, const uint8_t enableSwTrig);
 uint32_t DataRec_GetTriggerCounter(const uint32_t baseAddr);
 uint32_t DataRec_GetDoneTime(const uint32_t baseAddr);
-void DataRec_EnableTrigger(const uint32_t baseAddr, const uint32_t enTrig);
+void DataRec_EnableTrigger(const uint32_t baseAddr, const uint8_t sw, const uint8_t ext, const uint8_t self);
 void DataRec_SetMinTriggerPeriod(const uint32_t baseAddr, const uint32_t minTrig);
 void DataRec_EnableExtTriggerIn(const uint32_t baseAddr, const uint32_t extTrigIn);
 void DataRec_GetParameters(const uint32_t baseAddr, DataRec_Parameter *param);

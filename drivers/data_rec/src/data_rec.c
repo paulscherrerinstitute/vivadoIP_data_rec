@@ -52,8 +52,12 @@ uint32_t DataRec_GetDoneTime(const uint32_t baseAddr)
   return Xil_In32(baseAddr + DATAREC_REG_DONE_TIME);
 }
 
-void DataRec_EnableTrigger(const uint32_t baseAddr, const uint32_t enTrig)
+void DataRec_EnableTrigger(const uint32_t baseAddr, const uint8_t sw, const uint8_t ext, const uint8_t self)
 {
+  uint8_t enTrig = 0;
+  enTrig |= sw ? DATAREC_TRIG_SW : 0;
+  enTrig |= ext ? DATAREC_TRIG_EXT : 0;
+  enTrig |= self ? DATAREC_TRIG_SELF : 0;
   Xil_Out32(baseAddr + DATAREC_REG_TRIG_EN, enTrig);
 }
 
