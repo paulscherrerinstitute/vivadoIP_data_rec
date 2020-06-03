@@ -12,6 +12,12 @@ DataRec_Status DataRec_GetStatus(const uint32_t baseAddr)
   return (DataRec_Status) Xil_In32(baseAddr + DATAREC_REG_STATUS);
 }
 
+void DataRec_SetNumSamples(const uint32_t baseAddr, const uint32_t preTrigSamples, const uint32_t totalSamples)
+{
+  Xil_Out32(baseAddr + DATAREC_REG_PRE_TRIG, preTrigSamples);
+  Xil_Out32(baseAddr + DATAREC_REG_TOT_SAMPLES, totalSamples);
+}
+
 void DataRec_Arm(const uint32_t baseAddr)
 {
   Xil_Out32(baseAddr + DATAREC_REG_CTRL, 0x1);
@@ -87,10 +93,10 @@ void DataRec_GetData(const uint32_t baseAddr, uint32_t *buffer, const uint8_t ch
 {
   uint32_t regMemDepth = Xil_In32(baseAddr + DATAREC_REG_PARAM_MEMDEPTH);
   uint32_t memOffset = 0x80;
-  uint32_t channelOffset = channel * regMemDepth * 0x4;
+  uint32_t channelOffset = channel * regMemDepth * 0x4 + offset*4;
   // !!! To Be Optimized:
   for (uint32_t i=0;i<numSamples;i++) {
-    *(buffer + 4*i) = Xil_In32(baseAddr + memOffset + channelOffset);
+    *(buffer + i) = Xil_In32(baseAddr + memOffset + channelOffset + i*4);
   }
 }
 

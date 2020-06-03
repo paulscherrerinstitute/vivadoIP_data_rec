@@ -55,14 +55,15 @@ typedef struct DataRec_Parameter {
 } DataRec_Parameter;
 
 #define DATAREC_TRIG_EXT  0x1
-#define DATAREC_TRIG_SELF 0x2
-#define DATAREC_TRIG_SW   0x4
+#define DATAREC_TRIG_SW   0x2
+#define DATAREC_TRIG_SELF 0x4
 
 //*******************************************************************************
 // Functions
 //*******************************************************************************
 
 DataRec_Status DataRec_GetStatus(const uint32_t baseAddr);
+void DataRec_SetNumSamples(const uint32_t baseAddr, const uint32_t preTrigSamples, const uint32_t totalSamples);
 void DataRec_Arm(const uint32_t baseAddr);
 void DataRec_ClearTriggerCounter(const uint32_t baseAddr);
 void DataRec_SetSelfTriggerRange(const uint32_t baseAddr, const uint32_t low, const uint32_t high);
