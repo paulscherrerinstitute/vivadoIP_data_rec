@@ -1,0 +1,10 @@
+
+
+OPTION psf_version = 2.1;
+
+BEGIN DRIVER data_rec
+	OPTION supported_peripherals = (data_rec);
+	OPTION copyfiles = all;
+	OPTION VERSION = 1.0;
+	OPTION NAME = data_rec;
+END DRIVER

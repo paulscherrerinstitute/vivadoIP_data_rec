@@ -55,8 +55,11 @@ package data_rec_register_pkg is
 	constant Reg_MinRecPeriod_Addr_c	: integer	:= 16#002C#;
 	
 	constant Reg_EnableExtTrig_Addr_c	: integer	:= 16#0030#;
-	
-	
+
+	constant Reg_ParamInputs_Addr_c    : integer := 16#0034#;
+	constant Reg_ParamMemDepth_Addr_c  : integer := 16#0038#;
+
+
 	constant Mem_Addr_c					: integer	:= 16#0080#;
 	
 	function ToWordAddr(	ByteAddr	: in	integer) return integer;
