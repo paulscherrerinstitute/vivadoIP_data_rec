@@ -232,12 +232,12 @@ begin
    generic map
    (
       -- Users parameters
-      NumReg_g                    => USER_SLV_NUM_REG,
-      UseMem_g                    => true,
-      ResetVal_g                  => RegRstVal_c,
+      num_reg_g                    => USER_SLV_NUM_REG,
+      use_mem_g                    => true,
+      rst_val_g                  => RegRstVal_c,
       -- Parameters of Axi Slave Bus Interface
-      AxiIdWidth_g                => C_S00_AXI_ID_WIDTH,
-      AxiAddrWidth_g              => C_S00_AXI_ADDR_WIDTH
+      axi_id_width_g                => C_S00_AXI_ID_WIDTH,
+      axi_addr_width_g              => C_S00_AXI_ADDR_WIDTH
    )
    port map
    (
@@ -351,17 +351,17 @@ begin
 	
 	i_cc_status_toAxi : entity work.psi_common_status_cc
 		generic map (
-			DataWidth_g	=> CcSToAxi_Width_c
+			width_g	=> CcSToAxi_Width_c
 		)
 		port map (
-			ClkA		=> Clk,
-			RstInA		=> Rst,
-			RstOutA 	=> RstProc,
-			DataA		=> CcSToAxIn,
-			ClkB		=> s00_axi_aclk,
-			RstInB		=> AxiRst,
-			RstOutB		=> open,
-			DataB		=> CcSToAxOut			
+			a_clk_i		=> Clk,
+			a_rst_i		=> Rst,
+			a_rst_o 	=> RstProc,
+			a_dat_i		=> CcSToAxIn,
+			b_clk_i		=> s00_axi_aclk,
+			b_rst_i		=> AxiRst,
+			b_rst_o		=> open,
+			b_dat_o		=> CcSToAxOut			
 		);
 		
 	reg_stat_state 	<= CcSToAxOut(CcSToAxi_StatState_Rng);
@@ -383,17 +383,17 @@ begin
 	
 	i_cc_status_fromAxi : entity work.psi_common_status_cc
 		generic map (
-			DataWidth_g	=> CcSFromAxi_Width_c
+			width_g	=> CcSFromAxi_Width_c
 		)
 		port map (
-			ClkA		=> s00_axi_aclk,
-			RstInA		=> AxiRst,
-			RstOutA 	=> open,
-			DataA		=> CcSFromAxIn,
-			ClkB		=> Clk,
-			RstInB		=> Rst,
-			RstOutB		=> open,
-			DataB		=> CcSFromAxOut			
+			a_clk_i		=> s00_axi_aclk,
+			a_rst_i		=> AxiRst,
+			a_rst_o 	=> open,
+			a_dat_i		=> CcSFromAxIn,
+			b_clk_i		=> Clk,
+			b_rst_i		=> Rst,
+			b_rst_o		=> open,
+			b_dat_o		=> CcSFromAxOut			
 		);
 		
 	port_pretrig 			<= CcSFromAxOut(CcSFromAxi_PreTrig_Rng);	
@@ -415,17 +415,17 @@ begin
 	
 	i_cc_pulse_fromAxi : entity work.psi_common_pulse_cc
 		generic map (
-			NumPulses_g	=> CcFromAxi_Width_c
+			num_pulses_g	=> CcFromAxi_Width_c
 		)
 		port map (
-			ClkA 		=> s00_axi_aclk,
-			RstInA		=> AxiRst,
-			RstOutA		=> open,
-			PulseA		=> CcPFromAxIn,
-			ClkB		=> Clk,
-			RstInB		=> Rst,
-			RstOutB		=> open,
-			PulseB		=> CcPFromAxOut
+			a_clk_i 		=> s00_axi_aclk,
+			a_rst_i		=> AxiRst,
+			a_rst_o		=> open,
+			a_dat_i		=> CcPFromAxIn,
+			b_clk_i		=> Clk,
+			b_rst_i		=> Rst,
+			b_rst_o		=> open,
+			b_dat_o		=> CcPFromAxOut
 		);
 		
 	port_cfg_arm 		<= CcPFromAxOut(CcPFromAxi_Arm_c);
@@ -437,17 +437,17 @@ begin
 	
 	i_cc_pulse_toAxi : entity work.psi_common_pulse_cc
 		generic map (
-			NumPulses_g	=> CsPToAxi_Width_c
+			num_pulses_g	=> CsPToAxi_Width_c
 		)
 		port map (
-			ClkA 		=> Clk,
-			RstInA		=> Rst,
-			RstOutA		=> open,
-			PulseA		=> CcPToAxIn,
-			ClkB		=> s00_axi_aclk,
-			RstInB		=> AxiRst,
-			RstOutB		=> open,
-			PulseB		=> CcPToAxOut
+			a_clk_i 		=> Clk,
+			a_rst_i		=> Rst,
+			a_rst_o		=> open,
+			a_dat_i		=> CcPToAxIn,
+			b_clk_i		=> s00_axi_aclk,
+			b_rst_i		=> AxiRst,
+			b_rst_o		=> open,
+			b_dat_o		=> CcPToAxOut
 		);
 		
 	Done_Irq 		<= CcPToAxOut(CsPToAxi_Done_c);
@@ -543,24 +543,24 @@ begin
 	begin	
 		i_mem : entity work.psi_common_tdp_ram
 			generic map (
-				Depth_g		=> MemoryDepth_g,
-				Width_g		=> InputWidth_g,
-				Behavior_g	=> "RBW"
+				depth_g		=> MemoryDepth_g,
+				width_g		=> InputWidth_g,
+				behavior_g	=> "RBW"
 			)
 			port map (
 				-- Port A
-				ClkA		=> Clk,
-				AddrA		=> RecMemAdr,
-				WrA			=> RecMemWr,
-				DinA		=> RecMemData((i+1)*InputWidth_g-1 downto i*InputWidth_g),
-				DoutA		=> open,
+				a_clk_i		=> Clk,
+				a_addr_i		=> RecMemAdr,
+				a_wr_i			=> RecMemWr,
+				a_dat_i		=> RecMemData((i+1)*InputWidth_g-1 downto i*InputWidth_g),
+				a_dat_o		=> open,
 				
 				-- Port B
-				ClkB		=> s00_axi_aclk,
-				AddrB		=> AxiMemAdr,
-				WrB			=> '0',
-				DinB		=> (others => '0'),
-				DoutB		=> AxiMemOut(i)
+				b_clk_i		=> s00_axi_aclk,
+				b_addr_i		=> AxiMemAdr,
+				b_wr_i			=> '0',
+				b_dat_i		=> (others => '0'),
+				b_dat_o		=> AxiMemOut(i)
 			);
 	end generate;
   
