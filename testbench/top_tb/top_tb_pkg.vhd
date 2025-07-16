@@ -53,6 +53,7 @@ package top_tb_pkg is
 	
 	type Out_t is record
 		Done_Irq	: std_logic;
+		Trig_Out    : std_logic;
 	end record;
 	
 	-------------------------------------------------------------------------

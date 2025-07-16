@@ -28,6 +28,7 @@ entity data_rec_vivado_wrp is
 		InputWidth_g				: positive range 1 to 32	:= 8;
 		MemoryDepth_g				: positive					:= 128;
 		TrigInputs_g				: natural range 0 to 8		:= 1;
+		TrigForwarding_g			: boolean					:= false;			-- Forwarding of trigger signals to the output
 		
 		-- AXI Parameters
 		C_S00_AXI_ID_WIDTH          : integer := 1;							-- Width of ID for for write address, write data, read address and read data
@@ -50,6 +51,7 @@ entity data_rec_vivado_wrp is
 		In_Vld						: in std_logic;
 		-- Trigger Ports
 		Trig_In						: in std_logic_vector(TrigInputs_g-1 downto 0);
+		Trig_Out					: out std_logic;
 		Done_Irq					: out std_logic;
 		-----------------------------------------------------------------------------
 		-- Axi Slave Bus Interface
@@ -479,6 +481,7 @@ begin
 			In_Vld			=> In_Vld,		
 			-- Trigger Ports
 			Trig_In			=> Trig_In,
+			Trig_Out		=> Trig_Out,
 			-- Register Ports
 			State			=> port_stat_state,
 			Arm				=> port_cfg_arm,

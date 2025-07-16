@@ -8,6 +8,7 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "MemoryDepth_g" -parent ${Configuration}
   ipgui::add_param $IPINST -name "TrigInputs_g" -parent ${Configuration}
   ipgui::add_param $IPINST -name "C_S00_AXI_ADDR_WIDTH" -parent ${Configuration}
+  ipgui::add_param $IPINST -name "TrigForwarding_g" -parent ${Configuration}
 
 
 }
@@ -57,6 +58,15 @@ proc validate_PARAM_VALUE.NumOfInputs_g { PARAM_VALUE.NumOfInputs_g } {
 	return true
 }
 
+proc update_PARAM_VALUE.TrigForwarding_g { PARAM_VALUE.TrigForwarding_g } {
+	# Procedure called to update TrigForwarding_g when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.TrigForwarding_g { PARAM_VALUE.TrigForwarding_g } {
+	# Procedure called to validate TrigForwarding_g
+	return true
+}
+
 proc update_PARAM_VALUE.TrigInputs_g { PARAM_VALUE.TrigInputs_g } {
 	# Procedure called to update TrigInputs_g when any of the dependent parameters in the arguments change
 }
@@ -85,6 +95,11 @@ proc update_MODELPARAM_VALUE.MemoryDepth_g { MODELPARAM_VALUE.MemoryDepth_g PARA
 proc update_MODELPARAM_VALUE.TrigInputs_g { MODELPARAM_VALUE.TrigInputs_g PARAM_VALUE.TrigInputs_g } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.TrigInputs_g}] ${MODELPARAM_VALUE.TrigInputs_g}
+}
+
+proc update_MODELPARAM_VALUE.TrigForwarding_g { MODELPARAM_VALUE.TrigForwarding_g PARAM_VALUE.TrigForwarding_g } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.TrigForwarding_g}] ${MODELPARAM_VALUE.TrigForwarding_g}
 }
 
 proc update_MODELPARAM_VALUE.C_S00_AXI_ID_WIDTH { MODELPARAM_VALUE.C_S00_AXI_ID_WIDTH PARAM_VALUE.C_S00_AXI_ID_WIDTH } {
