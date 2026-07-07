@@ -40,6 +40,7 @@ architecture sim of top_tb is
 	constant USER_WIDTH		: integer	:= 1;
 	constant DATA_WIDTH		: integer	:= 32;
 	constant BYTE_WIDTH		: integer	:= DATA_WIDTH/8;
+	constant TRIG_FWD 		: boolean 	:= true;
 	
 	subtype ID_RANGE is natural range ID_WIDTH-1 downto 0;
 	subtype ADDR_RANGE is natural range ADDR_WIDTH-1 downto 0;
@@ -102,6 +103,7 @@ begin
 			NumOfInputs_g				=> NumOfInputs_c,
 			MemoryDepth_g				=> MemoryDepth_g,
 			TrigInputs_g				=> TriggerInputs_c,
+			TrigForwarding_g			=> TRIG_FWD,
 			-- AXI
 			C_S00_AXI_ID_WIDTH     	 	=> ID_WIDTH,
 			C_S00_AXI_ADDR_WIDTH      	=> ADDR_WIDTH
@@ -123,6 +125,7 @@ begin
 			In_Vld				=> ToDut.In_Vld,
 			-- Trigger	
 			Trig_In				=> ToDut.Trig_In,
+			Trig_Out			=> FromDut.Trig_Out,
 			Done_Irq			=> FromDut.Done_Irq,
 			-- Axi Slave Bus Interface
 			s00_axi_aclk    	=> aclk,

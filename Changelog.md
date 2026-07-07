@@ -1,3 +1,7 @@
+## 2.4
+* New Features
+  * New optional Trig_Out port added. It forwards the selected internal trigger used by the logic.
+
 ## 2.3.2
 * Bugfixes
   * Fixed wrapping issue for non power-of-two *MemoryDepth\_g*

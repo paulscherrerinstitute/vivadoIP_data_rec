@@ -14,7 +14,7 @@ namespace import -force psi::ip_package::latest::*
 # General Information
 ###############################################################
 set IP_NAME data_rec
-set IP_VERSION 2.3
+set IP_VERSION 2.4
 set IP_REVISION "auto"
 set IP_LIBRARY GPAC3
 set IP_DESCIRPTION "Mutli channel data recorder (supports pre-trigger and self-triggering)"
@@ -75,6 +75,10 @@ gui_add_parameter
 gui_create_parameter "C_S00_AXI_ADDR_WIDTH" "Axi address width in bits"
 gui_add_parameter
 
+gui_create_parameter "TrigForwarding_g" "Enable data recored trigger out port"
+gui_parameter_set_widget_checkbox
+gui_add_parameter
+
 #Remove reset interface (Vivado messes up polarity...)
 remove_autodetected_interface Rst
 
@@ -94,6 +98,8 @@ set_interface_clock s00_axi s00_axi_aclk
 for {set i 0} {$i < 8} {incr i} {
 	add_port_enablement_condition "In_Data$i" "\$NumOfInputs_g > $i"
 }
+
+add_port_enablement_condition "Trig_Out" "\$TrigForwarding_g = true"
 
 ###############################################################
 # Package Core
